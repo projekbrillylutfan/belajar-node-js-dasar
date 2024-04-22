@@ -1,0 +1,15 @@
+beforeAll(() => console.info("before all 1"))
+afterAll(() => console.info("after all 1"))
+beforeEach(() => console.info("before each 1"))
+afterEach(() => console.info("after each 1"))
+test('test outer 1', () => console.info("test outer 1"))
+test('test outer 2', () => console.info("test outer 2"))
+
+describe('inner scope ', () => {
+    beforeAll(() => console.info("before all 1"))
+    afterAll(() => console.info("after all 1"))
+    beforeEach(() => console.info("before each 1"))
+    afterEach(() => console.info("after each 1 "))
+    test('test inner 1', () => console.info("test inner 1"))
+    test('test inner 2', () => console.info("test inner 2"))
+})
