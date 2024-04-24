@@ -25,7 +25,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!vendor/**/*.{js,jsx,ts,tsx}"
       
-    ]
+    ],
+    "maxConcurrent": 1
   },
   "author": "billy uhuy",
   "license": "MIT",
