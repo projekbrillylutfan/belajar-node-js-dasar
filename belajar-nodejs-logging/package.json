@@ -1,7 +1,7 @@
 {
-  "name": "belajar-nodejs-unit-test",
+  "name": "belajar-nodejs-logging",
   "version": "1.0.0",
-  "description": "belajar node js untuk unit testing",
+  "description": "belajar node js untuk logging",
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
@@ -24,7 +24,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!vendor/**/*.{js,jsx,ts,tsx}"
-      
     ],
     "maxConcurrent": 1
   },
@@ -36,5 +35,7 @@
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "winston": "^3.13.0"
+  }
 }
