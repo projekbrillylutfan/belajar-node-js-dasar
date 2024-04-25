@@ -1,0 +1,28 @@
+{
+  "date": "Thu Apr 25 2024 17:49:23 GMT+0700 (Western Indonesia Time)",
+  "error": "ups",
+  "level": "error",
+  "message": "unhandledRejection: ups\n  No stack trace",
+  "os": { "loadavg": [0, 0, 0], "uptime": 31184.5 },
+  "process": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "d:\\dir D\\Bootcamp Synrgy Academy FSW\\belajar js\\latihan kodingan\\belajar-node-js-dasar\\belajar-nodejs-logging\\src\\11_logging-rejection.js"
+    ],
+    "cwd": "d:\\dir D\\Bootcamp Synrgy Academy FSW\\belajar js\\latihan kodingan\\belajar-node-js-dasar",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "gid": null,
+    "memoryUsage": {
+      "arrayBuffers": 10515,
+      "external": 1876457,
+      "heapTotal": 10133504,
+      "heapUsed": 6793904,
+      "rss": 34299904
+    },
+    "pid": 17344,
+    "uid": null,
+    "version": "v20.11.1"
+  },
+  "rejection": true,
+  "trace": []
+}
