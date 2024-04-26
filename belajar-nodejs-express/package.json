@@ -1,0 +1,11 @@
+{
+  "name": "belajar-node-js-express",
+  "version": "1.0.0",
+  "description": "belajar node js express PZN",
+  "main": "index.js",
+  "author": "billy uhuy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
