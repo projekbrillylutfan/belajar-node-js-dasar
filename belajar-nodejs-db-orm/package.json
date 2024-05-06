@@ -1,0 +1,24 @@
+{
+  "name": "belajar-nodejs-db-orm",
+  "version": "1.0.0",
+  "description": "belajar node js db dan prisma orm",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "author": "billy uhuyyy",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.5",
+    "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "prisma": "^5.13.0"
+  }
+}
