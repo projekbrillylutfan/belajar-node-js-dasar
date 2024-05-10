@@ -25,6 +25,8 @@ model Customer {
   phone    String    @unique
   wallet   Wallet?
   comments Comment[]
+  likes    Like[]
+  loves    Product[] @relation("loves")
 
   @@map("customers")
 }
@@ -49,11 +51,13 @@ model Comment {
 }
 
 model Product {
-  id       String @id
+  id       String     @id
   name     String
   price    Int
   stock    Int
   category String
+  likedBy  Like[]
+  lovesBy  Customer[] @relation("loves")
 
   @@map("products")
 }
@@ -63,4 +67,14 @@ model Category {
   name String @db.VarChar(100)
 
   @@map("categories")
+}
+
+model Like {
+  customer_id String   @db.VarChar(100)
+  product_id  String   @db.VarChar(100)
+  customer    Customer @relation(fields: [customer_id], references: [id])
+  product     Product  @relation(fields: [product_id], references: [id])
+
+  @@id([customer_id, product_id])
+  @@map("likes")
 }

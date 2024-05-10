@@ -127,4 +127,105 @@ describe("prisma client", () => {
 
     console.info(customers);
   });
+
+  it("shoul be able to many to many relation", async () => {
+    const like = await prismaClient.like.create({
+      data: {
+        customer_id: "budi",
+        product_id: "P0001",
+      },
+      include: {
+        customer: true,
+        product: true,
+      },
+    });
+
+    console.log(like);
+  });
+
+  it("shoul be able to many to many relation find with include", async () => {
+    const customer = await prismaClient.customer.findUnique({
+      where: {
+        id: "budi",
+      },
+      include: {
+        likes: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    console.log(JSON.stringify(customer));
+  });
+
+  it("shoul be able to many to many relation find many with include", async () => {
+    const customer = await prismaClient.customer.findMany({
+      where: {
+        likes: {
+          some: {
+            product: {
+              name: {
+                contains: "A",
+              },
+            },
+          },
+        },
+      },
+      include: {
+        likes: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    console.log(JSON.stringify(customer));
+  });
+
+  it("shoul be able to many to many relation create implicit relation", async () => {
+    const customer = await prismaClient.customer.update({
+      where: {
+        id: "budi",
+      },
+      data: {
+        loves: {
+          connect: [
+            {
+              id: "P0001",
+            },
+            {
+              id: "P0002",
+            },
+          ],
+        },
+      },
+      include: {
+        loves: true,
+      },
+    });
+
+    console.log(JSON.stringify(customer));
+  });
+
+  it("shoul be able to many to many relation find many implicit relation", async () => {
+    const customer = await prismaClient.customer.findMany({
+      where: {
+        loves: {
+          some: {
+            name: {
+              contains: "A",
+            },
+          },
+        },
+      },
+      include: {
+        loves: true,
+      },
+    });
+
+    console.log(JSON.stringify(customer));
+  });
 });
