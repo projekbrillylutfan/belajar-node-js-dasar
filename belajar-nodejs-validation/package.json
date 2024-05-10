@@ -1,0 +1,8 @@
+{
+  "name": "belajar-nodejs-validation",
+  "version": "1.0.0",
+  "description": "belajar node js validation",
+  "main": "index.js",
+  "author": "billy uhuy",
+  "license": "MIT"
+}
