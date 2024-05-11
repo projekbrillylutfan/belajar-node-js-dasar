@@ -4,7 +4,8 @@
   "description": "studi kasus nodejs restful api",
   "main": "src/main.js",
   "scripts": {
-    "test": "jest -i"
+    "test": "jest -i",
+    "dev": "node src/main.js"
   },
   "jest": {
     "verbose": true,
