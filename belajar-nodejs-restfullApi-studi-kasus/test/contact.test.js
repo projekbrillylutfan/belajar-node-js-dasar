@@ -88,76 +88,111 @@ describe("Get /api/contacts/:contactID", () => {
   });
 });
 
-describe('PUT /api/contacts/:contactId', function () {
-    beforeEach(async () => {
-        await createTestUser();
-        await createTestContact();
-    })
+describe("PUT /api/contacts/:contactId", function () {
+  beforeEach(async () => {
+    await createTestUser();
+    await createTestContact();
+  });
 
-    afterEach(async () => {
-        await removeAllTestContact();
-        await removeTestUser();
-    })
+  afterEach(async () => {
+    await removeAllTestContact();
+    await removeTestUser();
+  });
 
-    it('should can update existing contact', async () => {
-        const testContact = await getTestContact();
+  it("should can update existing contact", async () => {
+    const testContact = await getTestContact();
 
-        const result = await supertest(web)
-            .put('/api/contacts/' + testContact.id)
-            .set('Authorization', 'test')
-            .send({
-                first_name: "Eko",
-                last_name: "Khannedy",
-                email: "eko@pzn.com",
-                phone: "09999999"
-            });
+    const result = await supertest(web)
+      .put("/api/contacts/" + testContact.id)
+      .set("Authorization", "test")
+      .send({
+        first_name: "Eko",
+        last_name: "Khannedy",
+        email: "eko@pzn.com",
+        phone: "09999999",
+      });
 
-            console.log(result);
+    console.log(result);
 
-        expect(result.status).toBe(200);
-        expect(result.body.data.id).toBe(testContact.id);
-        expect(result.body.data.first_name).toBe("Eko");
-        expect(result.body.data.last_name).toBe("Khannedy");
-        expect(result.body.data.email).toBe("eko@pzn.com");
-        expect(result.body.data.phone).toBe("09999999");
-    });
+    expect(result.status).toBe(200);
+    expect(result.body.data.id).toBe(testContact.id);
+    expect(result.body.data.first_name).toBe("Eko");
+    expect(result.body.data.last_name).toBe("Khannedy");
+    expect(result.body.data.email).toBe("eko@pzn.com");
+    expect(result.body.data.phone).toBe("09999999");
+  });
 
-    it('should reject update invalid request', async () => {
-        const testContact = await getTestContact();
+  it("should reject update invalid request", async () => {
+    const testContact = await getTestContact();
 
-        const result = await supertest(web)
-            .put('/api/contacts/' + testContact.id)
-            .set('Authorization', 'test')
-            .send({
-                first_name: "",
-                last_name: "",
-                email: "eko",
-                phone: ""
-            });
+    const result = await supertest(web)
+      .put("/api/contacts/" + testContact.id)
+      .set("Authorization", "test")
+      .send({
+        first_name: "",
+        last_name: "",
+        email: "eko",
+        phone: "",
+      });
 
-            console.log(result);
+    console.log(result);
 
-        expect(result.status).toBe(400);
-       
-    });
+    expect(result.status).toBe(400);
+  });
 
-    it('should reject contact not found', async () => {
-        const testContact = await getTestContact();
+  it("should reject contact not found", async () => {
+    const testContact = await getTestContact();
 
-        const result = await supertest(web)
-            .put('/api/contacts/' + (testContact.id +1))
-            .set('Authorization', 'test')
-            .send({
-                first_name: "Eko",
-                last_name: "Khannedy",
-                email: "eko@pzn.com",
-                phone: "09999999"
-            });
+    const result = await supertest(web)
+      .put("/api/contacts/" + (testContact.id + 1))
+      .set("Authorization", "test")
+      .send({
+        first_name: "Eko",
+        last_name: "Khannedy",
+        email: "eko@pzn.com",
+        phone: "09999999",
+      });
 
-            console.log(result);
+    console.log(result);
 
-        expect(result.status).toBe(404);
-       
-    });
+    expect(result.status).toBe(404);
+  });
 });
 
+describe("DELETE /api/contacts/:contactId", function () {
+  beforeEach(async () => {
+    await createTestUser();
+    await createTestContact();
+  });
+
+  afterEach(async () => {
+    await removeAllTestContact();
+    await removeTestUser();
+  });
+
+  it("should can delete existing contact", async () => {
+    let testContact = await getTestContact();
+    const result = await supertest(web)
+      .delete("/api/contacts/" + testContact.id)
+      .set("Authorization", "test");
+
+    console.log(result);
+
+    expect(result.status).toBe(200);
+    expect(result.body.data).toBe("ok");
+
+    testContact = await getTestContact();
+    expect(testContact).toBe(null);
+  });
+
+  it("should reject delete existing contact if contact not found", async () => {
+    let testContact = await getTestContact();
+    const result = await supertest(web)
+      .delete("/api/contacts/" + (testContact.id + 1))
+      .set("Authorization", "test");
+
+    console.log(result);
+
+    expect(result.status).toBe(404);
+  });
+});
