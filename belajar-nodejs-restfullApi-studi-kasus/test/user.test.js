@@ -236,3 +236,4 @@ describe("Delete /api/users/logout", () => {
     expect(result.status).toBe(401);
   });
 });
+
