@@ -15,7 +15,15 @@ export const createTestUser = async () => {
             username: "test",
             password: await bcrypt.hash("rahasia", 10),
             name: "test",
-            token: "token"
+            token: "test"
+        }
+    })
+}
+
+export const getTestUser = async () => {
+    return prismaClient.user.findUnique({
+        where: {
+            username: "test"
         }
     })
 }
