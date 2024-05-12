@@ -28,7 +28,7 @@ export const getTestUser = async () => {
     })
 }
 
-export const removeAllTestContact = async () => {
+export const removeAllTestContacts = async () => {
   await prismaClient.contact.deleteMany({
     where: {
       username: "test",
@@ -67,6 +67,16 @@ export const getTestContact = async () => {
   return prismaClient.contact.findFirst({
     where: {
       username: "test"
+    }
+  })
+}
+
+export const removeAllTestAddresses = async () => {
+  await prismaClient.address.deleteMany({
+    where: {
+      contact: {
+        username: "test"
+      }
     }
   })
 }

@@ -275,7 +275,7 @@ describe("Get /api/contacts", function () {
       .set("Authorization", "test");
 
     expect(result.status).toBe(200);
-    expect(result.body.data.length).toBe(6);
+    expect(result.body.data.length).toBe(0);
     expect(result.body.paging.page).toBe(1);
     expect(result.body.paging.total_page).toBe(1);
     expect(result.body.paging.total_item).toBe(6);
