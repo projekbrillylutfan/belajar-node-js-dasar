@@ -1,0 +1,11 @@
+{
+  "name": "belajar-nodejs-eslint",
+  "version": "1.0.0",
+  "description": "belajar node js eslint",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^9.2.0"
+  }
+}
