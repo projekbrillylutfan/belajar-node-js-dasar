@@ -72,13 +72,13 @@ const get = async (user, contactId, addressId) => {
 
 const update = async (user, contactId, request) => {
   contactId = await checkContactMustExists(user, contactId);
-  const address = validate(updateAddressValidation, request)
+  const address = validate(updateAddressValidation, request);
 
   const totalAddressInDatabase = await prismaClient.address.count({
     where: {
       contact_id: contactId,
       id: address.id,
-    }
+    },
   });
 
   if (totalAddressInDatabase !== 1) {
@@ -103,8 +103,30 @@ const update = async (user, contactId, request) => {
       province: true,
       country: true,
       postal_code: true,
-    }
-  })
+    },
+  });
 };
 
-export default { create, get, update };
+const remove = async (user, contactId, addressId) => {
+  contactId = await checkContactMustExists(user, contactId);
+  addressId = validate(getAddressValidation, addressId);
+
+  const totalAddressInDatabase = await prismaClient.address.count({
+    where: {
+      contact_id: contactId,
+      id: addressId,
+    },
+  });
+
+  if (totalAddressInDatabase !== 1) {
+    throw new ResponseError(404, "address not found");
+  }
+
+  return prismaClient.address.delete({
+    where: {
+      id: addressId,
+    },
+  });
+};
+
+export default { create, get, update, remove };

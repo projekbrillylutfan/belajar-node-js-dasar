@@ -166,13 +166,13 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
         postal_code: "1111",
       });
 
-      expect(result.status).toBe(200);
-      expect(result.body.data.id).toBe(testAddress.id);
-      expect(result.body.data.street).toBe("street");
-      expect(result.body.data.city).toBe("city");
-      expect(result.body.data.province).toBe("provinsi");
-      expect(result.body.data.country).toBe("country");
-      expect(result.body.data.postal_code).toBe("1111");
+    expect(result.status).toBe(200);
+    expect(result.body.data.id).toBe(testAddress.id);
+    expect(result.body.data.street).toBe("street");
+    expect(result.body.data.city).toBe("city");
+    expect(result.body.data.province).toBe("provinsi");
+    expect(result.body.data.country).toBe("country");
+    expect(result.body.data.postal_code).toBe("1111");
   });
 
   it("should reject update address if request not valid", async () => {
@@ -190,7 +190,7 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
         postal_code: "",
       });
 
-      expect(result.status).toBe(400);
+    expect(result.status).toBe(400);
   });
 
   it("should reject if address not found", async () => {
@@ -198,7 +198,9 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
     const testAddress = await getTestAddress();
 
     const result = await supertest(web)
-      .put("/api/contacts/" + testContact.id + "/addresses/" + (testAddress.id + 1))
+      .put(
+        "/api/contacts/" + testContact.id + "/addresses/" + (testAddress.id + 1)
+      )
       .set("Authorization", "test")
       .send({
         street: "street",
@@ -208,7 +210,7 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
         postal_code: "1111",
       });
 
-      expect(result.status).toBe(404);
+    expect(result.status).toBe(404);
   });
 
   it("should reject if contact not found", async () => {
@@ -216,7 +218,9 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
     const testAddress = await getTestAddress();
 
     const result = await supertest(web)
-      .put("/api/contacts/" + (testContact.id + 1) + "/addresses/" + testAddress.id)
+      .put(
+        "/api/contacts/" + (testContact.id + 1) + "/addresses/" + testAddress.id
+      )
       .set("Authorization", "test")
       .send({
         street: "street",
@@ -226,6 +230,63 @@ describe("Update /api/contacts/:contactId/addresses/:addressId", () => {
         postal_code: "1111",
       });
 
-      expect(result.status).toBe(404);
+    expect(result.status).toBe(404);
+  });
+});
+
+describe("Delete /api/contacts/:contactId/addresses/:addressId", () => {
+  beforeEach(async () => {
+    await createTestUser();
+    await createTestContact();
+    await createTestAddress();
+  });
+
+  afterEach(async () => {
+    await removeAllTestAddresses();
+    await removeAllTestContacts();
+    await removeTestUser();
+  });
+
+  it("should can delete address", async () => {
+    const testContact = await getTestContact();
+    let testAddress = await getTestAddress();
+
+    const result = await supertest(web)
+      .delete(
+        "/api/contacts/" + testContact.id + "/addresses/" + testAddress.id
+      )
+      .set("Authorization", "test");
+
+    expect(result.status).toBe(200);
+    expect(result.body.data).toBe("ok");
+
+    testAddress = await getTestAddress();
+    expect(testAddress).toBeNull();
+  });
+
+  it("should reject if address not found", async () => {
+    const testContact = await getTestContact();
+    let testAddress = await getTestAddress();
+
+    const result = await supertest(web)
+      .delete(
+        "/api/contacts/" + testContact.id + "/addresses/" + (testAddress.id + 1)
+      )
+      .set("Authorization", "test");
+
+    expect(result.status).toBe(404);
+  });
+
+  it("should reject if contact not found", async () => {
+    const testContact = await getTestContact();
+    let testAddress = await getTestAddress();
+
+    const result = await supertest(web)
+      .delete(
+        "/api/contacts/" + (testContact.id + 1) + "/addresses/" + testAddress.id
+      )
+      .set("Authorization", "test");
+
+    expect(result.status).toBe(404);
   });
 });
